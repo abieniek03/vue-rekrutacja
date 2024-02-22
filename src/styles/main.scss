@@ -57,4 +57,9 @@ button {
 	&:hover {
 		background-color: color.$hover;
 	}
+
+	&:disabled {
+		opacity: 25%;
+		cursor: default;
+	}
 }

@@ -26,14 +26,14 @@ const goToNextPage = () => {
 
 <template>
 	<div class="pagination__container">
-		<button @click="goToPreviousPage">
+		<button @click="goToPreviousPage" :disabled="currentPage <= 1 || currentPage > 10">
 			<i class="ri-arrow-left-s-fill"></i>
 		</button>
 		<div>
 			<input v-model.lazy="currentPage" type="text" class="pagination__input" />
 			<span class="slash">/</span><span>10</span>
 		</div>
-		<button @click="goToNextPage">
+		<button @click="goToNextPage" :disabled="currentPage >= 10">
 			<i class="ri-arrow-right-s-fill"></i>
 		</button>
 	</div>
@@ -52,6 +52,9 @@ const goToNextPage = () => {
 		align-items: center;
 		gap: 1em;
 		font-size: 1.4rem;
+	}
+
+	&__button--disabled {
 	}
 
 	&__input {
