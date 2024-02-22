@@ -2,6 +2,7 @@
 interface Props {
 	title: string;
 	description: string;
+	userId: number;
 }
 
 const props = defineProps<Props>();
@@ -9,13 +10,11 @@ const props = defineProps<Props>();
 
 <template>
 	<div class="post-item__container">
-		<div class="post-item__content">
-			<h2>{{ props.title }}</h2>
-			<p>
-				{{ props.description }}
-			</p>
-		</div>
-		<a href="/">zobacz więcej...</a>
+		<h2>{{ props.title }}</h2>
+		<p>
+			{{ props.description }}
+		</p>
+		<a href="/">zobacz więcej</a>
 	</div>
 </template>
 
@@ -25,9 +24,6 @@ const props = defineProps<Props>();
 		border: 1px solid;
 		padding: 1em 1.5em;
 		border-radius: 1rem;
-		display: flex;
-		justify-content: space-between;
-		align-items: end;
 	}
 }
 </style>
