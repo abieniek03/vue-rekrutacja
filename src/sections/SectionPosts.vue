@@ -7,12 +7,12 @@ const getPosts = async (page: number) => {
 	try {
 		const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_limit=10&_start=${page * 5}`);
 		return response.data;
-	} catch (error) {
-		throw new Error(error);
+	} catch (error: any) {
+		console.log(error);
 	}
 };
 
-const { isPending, isFetching, isError, data, error } = useQuery({
+const { isPending, data } = useQuery({
 	queryKey: ["posts"],
 	queryFn: () => getPosts(1),
 });
