@@ -28,7 +28,9 @@ const { data } = useQuery({
 <template>
 	<div class="post-item__container">
 		<h2>{{ props.title }}</h2>
-		<p v-if="data" class="post-item__author">{{ data.name }}</p>
+		<p v-if="data" class="post-item__author">
+			{{ data.name }}
+		</p>
 		<p class="post-item__description">
 			{{ props.description }}
 		</p>

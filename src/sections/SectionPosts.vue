@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PostItem from "../components/posts/PostItem.vue";
+import PostItemPlaceholder from "../components/posts/PostItemPlaceholder.vue";
 import axios from "axios";
 import { useQuery } from "@tanstack/vue-query";
 
@@ -12,7 +13,7 @@ const getPosts = async (page: number) => {
 	}
 };
 
-const { isPending, data } = useQuery({
+const { isPending, isError, data } = useQuery({
 	queryKey: ["posts"],
 	queryFn: () => getPosts(1),
 });
@@ -22,7 +23,8 @@ console.log(data);
 
 <template>
 	<section>
-		<p v-if="isPending">ładowanie...</p>
+		<PostItemPlaceholder v-if="isPending" v-for="index in 10" :key="index" />
+		<p v-else-if="isError" class="error">Nie znaleziono żadnego postu.</p>
 		<PostItem
 			v-else
 			v-for="post in data"
