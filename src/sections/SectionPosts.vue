@@ -4,28 +4,43 @@ import PostItemPlaceholder from "../components/posts/PostItemPlaceholder.vue";
 import axios from "axios";
 import { useQuery } from "@tanstack/vue-query";
 import Pagination from "../components/pagination/Pagination.vue";
+import { computed, watch } from "vue";
+//@ts-ignore
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const currentPage = computed(() => store.getters.getActivePage);
 
 const getPosts = async (page: number) => {
 	try {
-		const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_limit=10&_start=${page * 5}`);
+		const response = await axios.get(
+			`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10${page > 1 ? "&_start=${page * 10}" : ""}`
+		);
 		return response.data;
 	} catch (error: any) {
 		console.log(error);
 	}
 };
 
-const { isPending, isError, data } = useQuery({
+const { isPending, isError, data, refetch } = useQuery({
 	queryKey: ["posts"],
-	queryFn: () => getPosts(1),
+	queryFn: () => getPosts(Number(currentPage.value)),
 });
 
-console.log(data);
+watch(currentPage, () => {
+	refetch();
+	window.scrollTo({
+		top: 0,
+		behavior: "smooth",
+	});
+});
 </script>
 
 <template>
 	<section>
 		<PostItemPlaceholder v-if="isPending" v-for="index in 10" :key="index" />
-		<p v-else-if="isError" class="error">Nie znaleziono żadnego postu.</p>
+		<p v-else-if="isError || data.length < 1" class="error">Nie znaleziono żadnego postu.</p>
 		<PostItem
 			v-else
 			v-for="post in data"
