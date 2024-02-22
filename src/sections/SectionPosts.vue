@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/vue-query";
 
 const getPosts = async (page: number) => {
 	try {
-		const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_limit=10&_start=${page * 10}`);
+		const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_limit=10&_start=${page * 5}`);
 		return response.data;
 	} catch (error) {
 		throw new Error(error);
@@ -26,6 +26,7 @@ console.log(data);
 		<PostItem
 			v-else
 			v-for="post in data"
+			:key="post.id"
 			:title="post.title"
 			:description="post.body.split(' ').slice(0, 5).join(' ') + '...'"
 			:userId="post.userId"
