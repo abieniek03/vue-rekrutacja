@@ -1,8 +1,10 @@
+@use "colors" as color;
+
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	font-weight: 400;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
+	color: color.$content;
+	background-color: color.$background;
 }
 
 * {
@@ -32,12 +34,27 @@ section {
 }
 
 a {
-	color: #fff;
+	color: color.$content;
 	font-size: 0.8rem;
 }
 
 .error {
 	margin: 1em 0;
-	color: #ff0000;
+	color: color.$error;
 	text-align: center;
+}
+
+button {
+	color: color.$content;
+	outline: none;
+	border: 1px solid color.$content;
+	border-radius: 0.25em;
+	cursor: pointer;
+	background-color: transparent;
+	padding: 0.5em;
+	font-size: 1rem;
+
+	&:hover {
+		background-color: color.$hover;
+	}
 }

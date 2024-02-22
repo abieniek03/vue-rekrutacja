@@ -3,6 +3,7 @@ import PostItem from "../components/posts/PostItem.vue";
 import PostItemPlaceholder from "../components/posts/PostItemPlaceholder.vue";
 import axios from "axios";
 import { useQuery } from "@tanstack/vue-query";
+import Pagination from "../components/pagination/Pagination.vue";
 
 const getPosts = async (page: number) => {
 	try {
@@ -33,5 +34,6 @@ console.log(data);
 			:description="post.body.split(' ').slice(0, 5).join(' ') + '...'"
 			:userId="post.userId"
 		/>
+		<Pagination />
 	</section>
 </template>
