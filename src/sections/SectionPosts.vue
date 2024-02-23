@@ -13,18 +13,35 @@ const store = useStore();
 
 const pageCurrent = computed(() => store.getters.getPageActive);
 const postCountPerPage = computed(() => store.getters.getPostCountPerPage);
+const searchValue = computed(() => store.getters.getSearchValue);
 
 onMounted(() => {
 	store.dispatch("fetchPostsAndSetPageCount");
 });
 
-const getPosts = async (page: number, postCount: number) => {
+const getPosts = async (page: number, postCount: number, searchValue: string) => {
 	const offset = page > 1 ? `&_start=${page * postCount}` : "";
 
+	const response = await axios.get(
+		`https://jsonplaceholder.typicode.com/posts${
+			!searchValue ? `?_page=${page}&_limit=${postCountPerPage.value}${offset}` : ""
+		}`
+	);
 	try {
-		const response = await axios.get(
-			`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${postCountPerPage.value}${offset}`
-		);
+		if (searchValue) {
+			const filteredData = response.data.filter((el: any) => el.title.startsWith(searchValue));
+
+			console.log("stona", pageCurrent.value);
+			console.log("ilość danych: ", filteredData.length);
+			store.dispatch("setCounts", filteredData.length);
+
+			const sliceStart = pageCurrent.value <= 1 ? 0 : postCountPerPage.value * (pageCurrent.value - 1);
+			const sliceEnd = postCountPerPage.value * pageCurrent.value;
+			console.log("start:", sliceStart);
+			console.log("end:", sliceEnd);
+
+			return filteredData.slice(sliceStart, sliceEnd);
+		}
 		return response.data;
 	} catch (error: any) {
 		console.log(error);
@@ -33,10 +50,10 @@ const getPosts = async (page: number, postCount: number) => {
 
 const { isLoading, isError, data, refetch } = useQuery({
 	queryKey: ["posts"],
-	queryFn: () => getPosts(pageCurrent.value, postCountPerPage.value),
+	queryFn: () => getPosts(pageCurrent.value, postCountPerPage.value, searchValue.value),
 });
 
-watch(pageCurrent, () => {
+watch([pageCurrent, searchValue], () => {
 	refetch();
 	window.scrollTo({
 		top: 0,
