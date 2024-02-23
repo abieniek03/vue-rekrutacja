@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import PostItem from "../components/posts/PostItem.vue";
 import PostItemPlaceholder from "../components/posts/PostItemPlaceholder.vue";
-import axios from "axios";
-import { useQuery } from "@tanstack/vue-query";
+import PostItem from "../components/posts/PostItem.vue";
 import Pagination from "../components/pagination/Pagination.vue";
+
 import { computed, onMounted, watch } from "vue";
+import { useQuery } from "@tanstack/vue-query";
 //@ts-ignore
 import { useStore } from "vuex";
+import axios from "axios";
 
 const store = useStore();
 
@@ -18,11 +19,11 @@ onMounted(() => {
 });
 
 const getPosts = async (page: number, postCount: number) => {
+	const offset = page > 1 ? `&_start=${page * postCount}` : "";
+
 	try {
 		const response = await axios.get(
-			`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${postCountPerPage.value}${
-				page > 1 ? `&_start=${page * postCount}` : ""
-			}`
+			`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${postCountPerPage.value}${offset}`
 		);
 		return response.data;
 	} catch (error: any) {

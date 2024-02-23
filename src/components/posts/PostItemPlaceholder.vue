@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-	<div class="post-item__placeholder"></div>
+	<div class="post-item__placeholder" />
 </template>
 
 <style scoped lang="scss">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import axios from "axios";
 import { useQuery } from "@tanstack/vue-query";
+import axios from "axios";
 
 interface Props {
 	userId: number;
