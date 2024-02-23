@@ -4,36 +4,43 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
-const currentPage = computed({
-	get: () => store.getters.getActivePage,
+
+const pageCurrent = computed({
+	get: () => store.getters.getPageActive,
 	set: (value) => {
-		store.dispatch("setActivePage", value);
+		store.dispatch("setPageActive", value);
 	},
 });
 
+const pageCount = computed(() => store.getters.getPageCount);
+
+const setCurrentPage = (e: HTMLInputElement) => {
+	store.commit("setPageActive", parseInt(e.value));
+};
+
 const goToPreviousPage = () => {
-	if (currentPage.value > 1) {
-		store.dispatch("setActivePage", currentPage.value - 1);
+	if (pageCurrent.value > 1) {
+		store.dispatch("setPageActive", parseInt(pageCurrent.value) - 1);
 	}
 };
 
 const goToNextPage = () => {
-	if (currentPage.value < 10) {
-		store.dispatch("setActivePage", currentPage.value + 1);
+	if (pageCurrent.value < pageCount.value) {
+		store.dispatch("setPageActive", parseInt(pageCurrent.value) + 1);
 	}
 };
 </script>
 
 <template>
-	<div class="pagination__container">
-		<button @click="goToPreviousPage" :disabled="currentPage <= 1 || currentPage > 10">
+	<div v-if="pageCount > 1" class="pagination__container">
+		<button @click="goToPreviousPage" :disabled="pageCurrent <= 1 || pageCurrent > pageCount">
 			<i class="ri-arrow-left-s-fill"></i>
 		</button>
 		<div>
-			<input v-model.lazy="currentPage" type="text" class="pagination__input" />
-			<span class="slash">/</span><span>10</span>
+			<input v-model.lazy="pageCurrent" :input="setCurrentPage" type="text" class="pagination__input" />
+			<span class="slash">/</span><span>{{ pageCount }}</span>
 		</div>
-		<button @click="goToNextPage" :disabled="currentPage >= 10">
+		<button @click="goToNextPage" :disabled="pageCurrent >= pageCount">
 			<i class="ri-arrow-right-s-fill"></i>
 		</button>
 	</div>
@@ -52,9 +59,6 @@ const goToNextPage = () => {
 		align-items: center;
 		gap: 1em;
 		font-size: 1.4rem;
-	}
-
-	&__button--disabled {
 	}
 
 	&__input {

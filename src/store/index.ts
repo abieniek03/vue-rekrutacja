@@ -1,26 +1,49 @@
-// @ts-ignore
+//@ts-ignore
 import { createStore } from "vuex";
+import axios from "axios";
 
 interface State {
-	activePage: number;
+	postCountPerPage: number;
+	pageActive: number;
+	pageCount: number;
 }
 
 const store = createStore<State>({
 	state: {
-		activePage: 1,
+		postCountPerPage: 10,
+		pageActive: 1,
+		pageCount: 1,
 	},
 	mutations: {
-		setActivePage(prevState: State, page: number) {
-			prevState.activePage = page;
+		setPostCountPerPage(state: State, postCountPerPage: number) {
+			state.postCountPerPage = postCountPerPage;
+		},
+		setPageCount(state: State, pageCount: number) {
+			state.pageCount = pageCount;
+		},
+		setPageActive(state: State, pageActive: number) {
+			state.pageActive = pageActive;
 		},
 	},
 	actions: {
-		setActivePage({ commit }: any, page: number) {
-			commit("setActivePage", page);
+		async fetchPostsAndSetPageCount({ commit, getters }: any) {
+			try {
+				const response = await axios.get("https://jsonplaceholder.typicode.com/posts/");
+				const pageCount = Math.ceil(response.data.length / getters.getPostCountPerPage);
+				await commit("setPageCount", pageCount);
+			} catch (error) {
+				console.error(error);
+			}
+		},
+
+		setPageActive({ commit }: any, page: number) {
+			commit("setPageActive", page);
 		},
 	},
 	getters: {
-		getActivePage: (state: State) => state.activePage,
+		getPostCountPerPage: (state: State) => state.postCountPerPage,
+		getPageActive: (state: State) => state.pageActive,
+		getPageCount: (state: State) => state.pageCount,
 	},
 });
 

@@ -4,18 +4,25 @@ import PostItemPlaceholder from "../components/posts/PostItemPlaceholder.vue";
 import axios from "axios";
 import { useQuery } from "@tanstack/vue-query";
 import Pagination from "../components/pagination/Pagination.vue";
-import { computed, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 //@ts-ignore
 import { useStore } from "vuex";
 
 const store = useStore();
 
-const currentPage = computed(() => store.getters.getActivePage);
+const pageCurrent = computed(() => store.getters.getPageActive);
+const postCountPerPage = computed(() => store.getters.getPostCountPerPage);
 
-const getPosts = async (page: number) => {
+onMounted(() => {
+	store.dispatch("fetchPostsAndSetPageCount");
+});
+
+const getPosts = async (page: number, postCount: number) => {
 	try {
 		const response = await axios.get(
-			`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10${page > 1 ? "&_start=${page * 10}" : ""}`
+			`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${postCountPerPage.value}${
+				page > 1 ? `&_start=${page * postCount}` : ""
+			}`
 		);
 		return response.data;
 	} catch (error: any) {
@@ -23,12 +30,12 @@ const getPosts = async (page: number) => {
 	}
 };
 
-const { isPending, isError, data, refetch } = useQuery({
+const { isLoading, isError, data, refetch } = useQuery({
 	queryKey: ["posts"],
-	queryFn: () => getPosts(Number(currentPage.value)),
+	queryFn: () => getPosts(pageCurrent.value, postCountPerPage.value),
 });
 
-watch(currentPage, () => {
+watch(pageCurrent, () => {
 	refetch();
 	window.scrollTo({
 		top: 0,
@@ -39,7 +46,7 @@ watch(currentPage, () => {
 
 <template>
 	<section>
-		<PostItemPlaceholder v-if="isPending" v-for="index in 10" :key="index" />
+		<PostItemPlaceholder v-if="isLoading" v-for="index in postCountPerPage" :key="index" />
 		<p v-else-if="isError || data.length < 1" class="error">Nie znaleziono żadnego postu.</p>
 		<PostItem
 			v-else
