@@ -62,4 +62,11 @@ button {
 		opacity: 25%;
 		cursor: default;
 	}
+
+	.button {
+		&--primary {
+			background-color: colors.$content;
+			color: colors.$background;
+		}
+	}
 }
