@@ -11,10 +11,10 @@
 	&__placeholder {
 		width: 100%;
 		height: 140px;
-		border-radius: 1em;
-		border: 1px solid;
-		animation: animation-placeholder 2s infinite;
 		background-color: colors.$placeholder;
+		border: 1px solid;
+		border-radius: 1em;
+		animation: animation-placeholder 2s infinite;
 	}
 }
 

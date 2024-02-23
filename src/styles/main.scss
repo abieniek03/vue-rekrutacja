@@ -1,10 +1,10 @@
-@use "colors" as color;
+@use "colors" as colors;
 
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	font-weight: 400;
-	color: color.$content;
-	background-color: color.$background;
+	color: colors.$content;
+	background-color: colors.$background;
 }
 
 * {
@@ -27,35 +27,35 @@ body {
 }
 
 section {
-	margin: 1em 0;
 	display: flex;
 	flex-direction: column;
 	gap: 1em;
+	margin: 1em 0;
 }
 
 a {
-	color: color.$content;
+	color: colors.$content;
 	font-size: 0.8rem;
 }
 
 .error {
-	margin: 1em 0;
-	color: color.$error;
+	color: colors.$error;
 	text-align: center;
+	margin: 1em 0;
 }
 
 button {
-	color: color.$content;
-	outline: none;
-	border: 1px solid color.$content;
-	border-radius: 0.25em;
-	cursor: pointer;
 	background-color: transparent;
+	color: colors.$content;
+	outline: none;
+	border: 1px solid colors.$content;
+	border-radius: 0.25em;
 	padding: 0.5em;
 	font-size: 1rem;
+	cursor: pointer;
 
 	&:hover {
-		background-color: color.$hover;
+		background-color: colors.$hover;
 	}
 
 	&:disabled {

@@ -53,21 +53,21 @@ const goToNextPage = () => {
 }
 .pagination {
 	&__container {
-		margin-top: 2em;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		gap: 1em;
 		font-size: 1.4rem;
+		margin-top: 2em;
 	}
 
 	&__input {
+		width: 50px;
 		background: none;
+		color: colors.$content;
 		outline: none;
 		border: none;
 		border-bottom: 2px solid colors.$placeholder;
-		color: colors.$content;
-		width: 50px;
 		font-size: 1.3rem;
 		text-align: center;
 		margin-right: 0.5em;

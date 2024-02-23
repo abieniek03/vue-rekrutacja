@@ -54,8 +54,8 @@ const { data } = useQuery({
 .post-item {
 	&__container {
 		border: 1px solid;
-		padding: 1em 1.5em;
 		border-radius: 1rem;
+		padding: 1em 1.5em;
 	}
 
 	&__author {
