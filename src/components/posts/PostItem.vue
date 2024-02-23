@@ -3,9 +3,10 @@ import axios from "axios";
 import { useQuery } from "@tanstack/vue-query";
 
 interface Props {
-	title: string;
-	description: string;
 	userId: number;
+	postId: number;
+	title: string;
+	body: string;
 }
 
 const props = defineProps<Props>();
@@ -17,6 +18,13 @@ const getAuthor = async (userId: number) => {
 	} catch (error) {
 		console.log(error);
 	}
+};
+
+const deletePost = (postId: number) => {
+	axios
+		.delete(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+		.then(() => alert(`Usunięto "na niby" post o id ${postId}.😀`))
+		.catch(() => alert("Nie udało się usunąć posta!"));
 };
 
 const { data } = useQuery({
@@ -32,13 +40,17 @@ const { data } = useQuery({
 			{{ data.name }}
 		</p>
 		<p class="post-item__description">
-			{{ props.description }}
+			{{ props.body }}
 		</p>
-		<a href="/">zobacz więcej</a>
+		<div class="post-item__button-container">
+			<button>zobacz więcej</button>
+			<button @click="deletePost(props.postId)" class="post-item__button--delete">usuń</button>
+		</div>
 	</div>
 </template>
 
 <style scoped lang="scss">
+@use "../../styles/colors" as colors;
 .post-item {
 	&__container {
 		border: 1px solid;
@@ -53,6 +65,22 @@ const { data } = useQuery({
 
 	&__description {
 		margin-bottom: 1em;
+	}
+
+	&__button {
+		&-container {
+			display: flex;
+			gap: 0.5em;
+		}
+		&--delete {
+			background-color: colors.$error;
+			border-color: colors.$error;
+
+			&:hover {
+				background-color: colors.$error-hover;
+				border-color: colors.$error-hover;
+			}
+		}
 	}
 }
 </style>

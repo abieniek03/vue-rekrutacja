@@ -5,7 +5,7 @@
 </template>
 
 <style scoped lang="scss">
-@use "../../styles/colors" as color;
+@use "../../styles/colors" as colors;
 
 .post-item {
 	&__placeholder {
@@ -14,19 +14,19 @@
 		border-radius: 1em;
 		border: 1px solid;
 		animation: animation-placeholder 2s infinite;
-		background-color: color.$placeholder;
+		background-color: colors.$placeholder;
 	}
 }
 
 @keyframes animation-placeholder {
 	0% {
-		background-color: color.$placeholder;
+		background-color: colors.$placeholder;
 	}
 	50% {
-		background-color: color.$hover;
+		background-color: colors.$hover;
 	}
 	100% {
-		background-color: color.$placeholder;
+		background-color: colors.$placeholder;
 	}
 }
 </style>

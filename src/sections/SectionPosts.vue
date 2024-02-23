@@ -52,9 +52,10 @@ watch(pageCurrent, () => {
 			v-else
 			v-for="post in data"
 			:key="post.id"
-			:title="post.title"
-			:description="post.body.split(' ').slice(0, 5).join(' ') + '...'"
 			:userId="post.userId"
+			:postId="post.id"
+			:title="post.title"
+			:body="post.body.split(' ').slice(0, 5).join(' ') + '...'"
 		/>
 		<Pagination />
 	</section>

@@ -47,7 +47,7 @@ const goToNextPage = () => {
 </template>
 
 <style scoped lang="scss">
-@use "../../styles/colors" as color;
+@use "../../styles/colors" as colors;
 .slash {
 	margin-right: 0.5em;
 }
@@ -65,8 +65,8 @@ const goToNextPage = () => {
 		background: none;
 		outline: none;
 		border: none;
-		border-bottom: 2px solid color.$placeholder;
-		color: color.$content;
+		border-bottom: 2px solid colors.$placeholder;
+		color: colors.$content;
 		width: 50px;
 		font-size: 1.3rem;
 		text-align: center;
@@ -74,7 +74,7 @@ const goToNextPage = () => {
 		padding: 0.2em 0.5em;
 
 		&:focus {
-			border-bottom: 2px solid color.$content;
+			border-bottom: 2px solid colors.$content;
 		}
 	}
 }
