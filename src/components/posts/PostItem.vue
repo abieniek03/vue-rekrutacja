@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query";
 import axios from "axios";
+import { getAuthor } from "../../utils/getAuthor";
 
 interface Props {
 	userId: number;
@@ -10,15 +11,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-const getAuthor = async (userId: number) => {
-	try {
-		const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`);
-		return response.data;
-	} catch (error) {
-		console.log(error);
-	}
-};
 
 const deletePost = (postId: number) => {
 	axios
@@ -43,7 +35,8 @@ const { data } = useQuery({
 			{{ props.body }}
 		</p>
 		<div class="post-item__button-container">
-			<button>zobacz więcej</button>
+			<router-link :to="`/${props.postId.toString()}`" class="router-link"> zobacz więcej </router-link>
+
 			<button @click="deletePost(props.postId)" class="post-item__button--delete">usuń</button>
 		</div>
 	</div>

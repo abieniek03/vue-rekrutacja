@@ -44,7 +44,8 @@ a {
 	margin: 1em 0;
 }
 
-button {
+button,
+.router-link {
 	background-color: transparent;
 	color: colors.$content;
 	outline: none;
@@ -62,11 +63,8 @@ button {
 		opacity: 25%;
 		cursor: default;
 	}
+}
 
-	.button {
-		&--primary {
-			background-color: colors.$content;
-			color: colors.$background;
-		}
-	}
+.router-link {
+	text-decoration: none;
 }

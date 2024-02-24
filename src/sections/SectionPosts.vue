@@ -38,6 +38,7 @@ const getPosts = async (page: number, postCount: number, searchValue: string) =>
 
 			return filteredData.slice(sliceStart, sliceEnd);
 		}
+
 		return response.data;
 	} catch (error: any) {
 		console.log(error);
