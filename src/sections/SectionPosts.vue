@@ -2,6 +2,7 @@
 import PostItemPlaceholder from "../components/posts/PostItemPlaceholder.vue";
 import PostItem from "../components/posts/PostItem.vue";
 import Pagination from "../components/pagination/Pagination.vue";
+import { IPost } from "../types/types";
 
 import { computed, onMounted, watch } from "vue";
 import { useQuery } from "@tanstack/vue-query";
@@ -29,16 +30,11 @@ const getPosts = async (page: number, postCount: number, searchValue: string) =>
 	);
 	try {
 		if (searchValue) {
-			const filteredData = response.data.filter((el: any) => el.title.startsWith(searchValue));
-
-			console.log("stona", pageCurrent.value);
-			console.log("ilość danych: ", filteredData.length);
+			const filteredData = response.data.filter((el: IPost) => el.title.startsWith(searchValue));
 			store.dispatch("setCounts", filteredData.length);
 
 			const sliceStart = pageCurrent.value <= 1 ? 0 : postCountPerPage.value * (pageCurrent.value - 1);
 			const sliceEnd = postCountPerPage.value * pageCurrent.value;
-			console.log("start:", sliceStart);
-			console.log("end:", sliceEnd);
 
 			return filteredData.slice(sliceStart, sliceEnd);
 		}
