@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import LoadingAnimation from "../components/elements/LoadingAnimation.vue";
 
+import { ref } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import axios from "axios";
-import { ref, watch } from "vue";
+
 import { getAuthor } from "../utils/getAuthor";
 
 const postId = window.location.href.split("/")[3];
@@ -20,9 +21,9 @@ const getPost = async (id: number) => {
 	}
 };
 
-const { isLoading, isError, data, refetch } = useQuery({
+const { isLoading, isError, data } = useQuery({
 	queryKey: ["postData"],
-	queryFn: () => getPost(postId),
+	queryFn: () => getPost(Number(postId)),
 });
 </script>
 
