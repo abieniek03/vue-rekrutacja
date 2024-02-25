@@ -4,9 +4,7 @@ import SectionPosts from "../sections/SectionPosts.vue";
 </script>
 
 <template>
-	<div>
-		<h1>Hello!👋</h1>
-		<SectionSearch />
-		<SectionPosts />
-	</div>
+	<h1>Zadanie rekrutacyjne</h1>
+	<SectionSearch />
+	<SectionPosts />
 </template>
