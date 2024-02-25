@@ -1,0 +1,70 @@
+@use "colors" as colors;
+
+:root {
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	color: colors.$content;
+	background-color: colors.$background;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	width: 100%;
+	min-height: 100vh;
+}
+
+#app {
+	width: 100%;
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 1.5em;
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	margin: 1em 0;
+}
+
+a {
+	color: colors.$content;
+	font-size: 0.8rem;
+}
+
+.error {
+	color: colors.$error;
+	text-align: center;
+	margin: 1em 0;
+}
+
+button,
+.router-link {
+	background-color: transparent;
+	color: colors.$content;
+	outline: none;
+	border: 1px solid colors.$content;
+	border-radius: 0.25em;
+	padding: 0.5em;
+	font-size: 1rem;
+	cursor: pointer;
+
+	&:hover {
+		background-color: colors.$hover;
+	}
+
+	&:disabled {
+		opacity: 25%;
+		cursor: default;
+	}
+}
+
+.router-link {
+	text-decoration: none;
+}
