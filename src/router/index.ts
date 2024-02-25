@@ -8,8 +8,8 @@ import NotFound from "../pages/NotFound.vue";
 const routes = [
 	{ path: "/", component: Home },
 	{ path: "/:id", component: Post },
-	{ path: "/404", component: NotFound },
-	{ path: "/:pathMatch(.*)", redirect: "/404" },
+	{ path: "/nie-znaleziono", component: NotFound },
+	{ path: "/:pathMatch(.*)", redirect: "/nie-znaleziono" },
 ];
 
 const router = createRouter({
