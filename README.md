@@ -1,18 +1,20 @@
-# Vue 3 + TypeScript + Vite
+# Zadanie rekrutacyjne
+demo ➡️ https://vue-rekrutacja-p14pxic8e-abieniek03.vercel.app/
+## Planowanie
+Po zapoznaniu się z treścią przystąpiłem do wstępnego planowania. Zaplanowałem, jak wstępnie będzie wyglądać aplikacja.
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+![image](https://github.com/abieniek03/vue-rekrutacja/assets/106828687/f936ca25-5caf-41ef-8d99-56e172fdb232)
 
-## Recommended IDE Setup
+## Realizacja
+Projekt został stworzony przy użyciu Vite. Framework Vue 3 - composition API + TypeScript \
+Do stylowania aplikacji użyłem CSS z preprocesorem Sass. \
+Przy nazewnictwie klas korzystałem z metodologii BEM. \
+Biblioteka do zarządzania stanem - Vuex. \
+Routing - Vue Router.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Przy użyciu Vuex, konkretnie przy imporcie elementów z biblioteki w komponentach aplikacji w moim edytorze **Visual Studio Code** wyświetlał się błąd związany z typami.
+Szukałem odpowiedniej biblioteki zapewniającej typy dla Vuex na **npm**, ale niestety nie znalazłem nic odpoowiedniego. Dlatego zdecydowałem się na użycie ``//@ts-ignore``
 
-## Type Support For `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Dodatkowe funkcjonalności
+Aplikacja posiada wyszukiwarkę, która pozwala na wyszukanie posta po jego tytule. Posty odświeżane są w czasie rzeczywistym, kiedy użytkownik wpisuje/edytuje frazę wyszukiwania.
+Dodatkową opcją jest także wyświetlenie całego posta.
