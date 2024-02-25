@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoadingAnimation from "../components/elements/LoadingAnimation.vue";
 
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import axios from "axios";
 
@@ -9,6 +9,8 @@ import { getAuthor } from "../utils/getAuthor";
 
 const postId = window.location.href.split("/")[3];
 const authorName = ref("");
+
+document.title = "Ładowanie...";
 
 const getPost = async (id: number) => {
 	try {
@@ -25,13 +27,21 @@ const { isLoading, isError, data } = useQuery({
 	queryKey: ["postData"],
 	queryFn: () => getPost(Number(postId)),
 });
+
+watch([isError, data], ([isErrorValue, dataValue]) => {
+	if (isErrorValue) {
+		document.title = "Nie znaleziono takiego posta";
+	} else {
+		document.title = dataValue.title;
+	}
+});
 </script>
 
 <template>
 	<section>
 		<LoadingAnimation v-if="isLoading" />
 		<div v-else-if="isError">
-			<p class="error">Nie znaleziono takiego postu</p>
+			<p class="error">Nie znaleziono takiego posta</p>
 		</div>
 		<div v-else>
 			<h1 class="post__title">{{ data.title }}</h1>

@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+document.title = "Nie znaleziono takiej strony - 404";
+</script>
 
 <template>
 	<section class="not-found">
