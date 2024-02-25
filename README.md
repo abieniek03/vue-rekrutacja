@@ -1,5 +1,5 @@
 # Zadanie rekrutacyjne
-demo ➡️ https://vue-rekrutacja-p14pxic8e-abieniek03.vercel.app/
+DEMO ➡️ https://vue-rekrutacja.vercel.app/
 ## Planowanie
 Po zapoznaniu się z treścią przystąpiłem do wstępnego planowania. Zaplanowałem, jak wstępnie będzie wyglądać aplikacja.
 
