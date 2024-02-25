@@ -10,8 +10,6 @@ import { getAuthor } from "../utils/getAuthor";
 const postId = window.location.href.split("/")[3];
 const authorName = ref("");
 
-document.title = "Ładowanie...";
-
 const getPost = async (id: number) => {
 	try {
 		const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
