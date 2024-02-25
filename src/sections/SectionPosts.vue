@@ -4,7 +4,7 @@ import PostItem from "../components/posts/PostItem.vue";
 import Pagination from "../components/pagination/Pagination.vue";
 import { IPost } from "../types/types";
 
-import { computed, onMounted, watch } from "vue";
+import { computed, watch } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 //@ts-ignore
 import { useStore } from "vuex";
@@ -15,10 +15,6 @@ const store = useStore();
 const pageCurrent = computed(() => store.getters.getPageActive);
 const postCountPerPage = computed(() => store.getters.getPostCountPerPage);
 const searchValue = computed(() => store.getters.getSearchValue);
-
-onMounted(() => {
-	store.dispatch("fetchPostsAndSetPageCount");
-});
 
 const getPosts = async (page: number, postCount: number, searchValue: string) => {
 	const offset = page > 1 ? `&_start=${page * postCount}` : "";
@@ -39,6 +35,7 @@ const getPosts = async (page: number, postCount: number, searchValue: string) =>
 			return filteredData.slice(sliceStart, sliceEnd);
 		}
 
+		store.dispatch("fetchPostsAndSetPageCount");
 		return response.data;
 	} catch (error: any) {
 		console.log(error);
